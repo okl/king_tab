@@ -235,6 +235,9 @@ var EventsManager = (function() {
           product_id: '2927339'
         }
       ]
+    },
+    {
+      event_id: "53539"
     }
   ];
 
