@@ -9,6 +9,11 @@ var DateHelper = (function() {
         'Saturday'
     ];
 
+    var OFFICE_LOCATIONS = {
+        4: 'NY',
+        7: 'SF'
+    };
+
 
     return {
         getTimeOfTheDayGreeting: function() {
@@ -34,6 +39,11 @@ var DateHelper = (function() {
 
         getCurrentTime: function() {
             return moment().format("h:mma");
+        },
+
+        getLocale: function () {
+            var tzo = new Date().getTimezoneOffset()/60;
+            return OFFICE_LOCATIONS[tzo];
         }
     }
 

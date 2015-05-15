@@ -84,10 +84,7 @@ var kingTab = (function (window, $) {
         },
 
         prepareImageParamValue: function (value) {
-            if (value instanceof Array) {
-                return value.join(',');
-            }
-            return value;
+            return (value instanceof Array ? value.join(',') : value);
         },
 
         imageUrl: function (eventId) {
@@ -112,7 +109,7 @@ var kingTab = (function (window, $) {
         },
 
         setMessages: function (ems) {
-            $(ems.welcome).html('Happy '+DateHelper.getDayName()+'!');
+            $(ems.welcome).html('Happy '+DateHelper.getDayName()+', '+DateHelper.getLocale()+'!');
             this.setTime(ems.clock);
         },
 
@@ -139,8 +136,8 @@ var kingTab = (function (window, $) {
         },
 
         setEventProducts: function(ems, currentEvent) {
-            var allProducts = "", currentProduct;
-            var productTemplate = "<div class='product'><a href='#LINK_URL'><img src='#IMG_URL'/></a></div>";
+            var allProducts = '', currentProduct;
+            var productTemplate = '<div class="product"><a href="#LINK_URL"><img src="#IMG_URL"/></a></div>';
 
             for (var i=0, len = currentEvent.products.length; i < len; i++) {
                 currentProduct = currentEvent.products[i];
@@ -159,14 +156,14 @@ var kingTab = (function (window, $) {
                 }
             });
 
-            controlElements.magnify.click(function () {
+            controlElements.magnify.on('click', function () {
                 controlElements.searchInput.addClass('expanded').focus();
-                controlElements.searchInput.blur(function () {
+                controlElements.searchInput.on('blur', function () {
                     controlElements.searchInput.removeClass('expanded');
                 });
             });
 
-            controlElements.refresh.click(function () {
+            controlElements.refresh.on('click', function () {
                 self.refresh();
             });
 
@@ -183,17 +180,15 @@ var kingTab = (function (window, $) {
             });
 
             eventElements.eventLookContainer.fadeIn(3000);
-
-
         }
     };
 })(window, $);
 
-$(document).ready(function () {
+$(document).on('ready', function () {
     kingTab.init();
 });
 
-$(window).load(function () {
+$(window).on('load', function () {
     $('#init-overlay').fadeOut(function () {
         this.remove();
     });
