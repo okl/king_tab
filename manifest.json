@@ -1,13 +1,13 @@
 {
   "name": "One Kings Lane",
   "description": "A One Kings Lane branded tab page!",
-  "version": "0.2",
+  "version": "1.0",
   "incognito": "split",
   "chrome_url_overrides": {
     "newtab": "dashboard.html"
   },
   "permissions": [
-    "https://*/"
+    "https://www.onekingslane.com/"
   ],
   "manifest_version": 2,
   "icons": {
