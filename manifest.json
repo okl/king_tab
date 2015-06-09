@@ -1,5 +1,6 @@
 {
-  "name": "One Kings Lane",
+  "name": "One Kings Lane Tab",
+  "short_name": "OKL Tab",
   "description": "A One Kings Lane branded tab page!",
   "version": "1.0",
   "incognito": "split",
