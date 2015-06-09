@@ -39,31 +39,70 @@ var kingTab = (function (window, $) {
     };
 
     var baseUrl = 'https://www.onekingslane.com/',
-        scene7BaseUrl = 'https://okl-scene7.insnw.net/is/image/OKL/';
+        scene7BaseUrl = 'https://okl-scene7.insnw.net/is/image/OKL/',
+        $body = $('body');
 
     return {
         init: function () {
-            this.loadEvent(EventsManager.getInitialEvent());
-            this.setMessages(textElements);
-            this.createEventHandlers();
+            var self = this;
+
+            self.createWhiteBackground();
+            EventsManager.fetchEvents(baseUrl + '/api/sales-events-by-days/1', function () {
+                self.initBackgroundImage(function () {
+                    self.setBackgroundImage(EventsManager.currentEvent().sales_event_id, IMAGE_CONFIG);
+                    self.setEvent(eventElements, EventsManager.currentEvent());
+                    self.preloadBackgroundImages(EventsManager.events);
+                });
+            });
+            self.setMessages(textElements);
+            self.createEventHandlers();
         },
 
         refresh: function () {
             BG_NUM++;
-            this.loadEvent(EventsManager.getNextEvent());
+            this.loadEvent(EventsManager.nextEvent());
         },
 
-        loadEvent: function (event) {
-            this.currentEvent = event;
-            this.setBackgroundImage(this.currentEvent.event_id);
-            this.setEvent(eventElements, this.currentEvent);
+        createWhiteBackground: function () {
+            $body.prepend('<div id="bg0" class="background"></div>');
+            $('#bg0').css({
+                'zIndex': 0,
+                'background-color':'#FFFFFF'
+            });
+        },
+
+        initBackgroundImage: function (callback) {
+            var self = this,
+                image = new Image();
+
+            image.onload = callback;
+            image.src = self.imageUrl(EventsManager.currentEvent().sales_event_id, IMAGE_CONFIG);
+        },
+
+        preloadBackgroundImages: function (events) {
+            var backgroundUrls = events.map(function (event) {
+                return 'url("' + this.imageUrl(event.sales_event_id) + '")';
+            }, this).slice(1);
+
+            $('<style>body:after {display: none; content: ' + backgroundUrls.join(' ') + '}</style>').appendTo('head');
+        },
+
+        loadEvent: function () {
+            this.setBackgroundImage(EventsManager.currentEvent().sales_event_id);
+            this.setEvent(eventElements, EventsManager.currentEvent());
+        },
+
+        backgroundHTML: function (num, eventId) {
+            return '<div id="bg' + num + '" ' +
+                'class="background" ' +
+                'style="z-index: ' + (0 - num) + '; ' +
+                'background-image: url(' + this.imageUrl(eventId) + ')">' +
+                '</div>';
         },
 
         setBackgroundImage: function (eventId) {
-            var BG_TEMPLATE = $('<div id="bg'+BG_NUM+'" class="background"></div>');
-            $('body').prepend($(BG_TEMPLATE).attr('id','bg'+BG_NUM));
-            $('#bg'+BG_NUM).css({'zIndex':(0-BG_NUM),'background-image':'url("' + this.imageUrl(eventId) + '")'});
-            $('#bg'+(BG_NUM-1)).fadeOut(function () {
+            $body.prepend(this.backgroundHTML(BG_NUM, eventId));
+            $('#bg' + (BG_NUM - 1)).fadeOut(function () {
                 this.remove();
             });
         },
@@ -88,7 +127,7 @@ var kingTab = (function (window, $) {
         },
 
         imageUrl: function (eventId) {
-            return "images/" + "SalesEvent_" + eventId + "_Lifestyle_3.jpeg";
+            return scene7BaseUrl + 'SalesEvent_' + eventId + '_Lifestyle_3?' + this.imageUrlParams();
         },
 
         eventUrl: function (eventId) {
@@ -129,8 +168,8 @@ var kingTab = (function (window, $) {
             $(ems.eventTitle).html(currentEvent.event_title);
             $(ems.eventDescription).html(currentEvent.event_description);
             $(ems.eventDialogTitle).html(currentEvent.event_title);
-            //$(ems.eventDialogImage).attr("src", this.fullBleedImageUrl(this.currentEvent.event_id));
-            $(ems.eventDialogUrl).attr("href", this.eventUrl(this.currentEvent.event_id));
+            //$(ems.eventDialogImage).attr("src", this.fullBleedImageUrl(EventsManager.currentEvent().sales_sales_event_id));
+            $(ems.eventDialogUrl).attr("href", this.eventUrl(EventsManager.currentEvent().sales_sales_event_id));
 
             this.setEventProducts(ems, currentEvent);
         },
@@ -141,7 +180,7 @@ var kingTab = (function (window, $) {
 
             for (var i=0, len = currentEvent.products.length; i < len; i++) {
                 currentProduct = currentEvent.products[i];
-                allProducts += productTemplate.replace('#LINK_URL', this.productEventUrl(currentEvent.event_id, currentProduct.product_id))
+                allProducts += productTemplate.replace('#LINK_URL', this.productEventUrl(currentEvent.sales_event_id, currentProduct.product_id))
                     .replace('#IMG_URL', this.productImageUrl(currentEvent.products[i]));
             }
             $(ems.eventDialogProducts).html(allProducts);
@@ -176,7 +215,7 @@ var kingTab = (function (window, $) {
             });
 
             eventElements.getThisLookBtn.on('click', function() {
-                window.location = self.eventUrl(self.currentEvent.event_id);
+                window.location = self.eventUrl(EventsManager.currentEvent().sales_event_id);
             });
 
             eventElements.eventLookContainer.fadeIn(3000);
