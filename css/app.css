@@ -121,7 +121,7 @@ input[type="text"]:focus {
 #search-input {
     position: absolute;
     top: 5px;
-    left: 1px;
+    left: 10px;
     width: 0px;
     height: 30px;
     padding: 4px 0;
@@ -162,7 +162,7 @@ input[type="text"]:focus {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    padding: 8px 5px;
+    padding: 10px 15px;
 }
 #okl-logo {
     display: block;
