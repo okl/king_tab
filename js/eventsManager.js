@@ -22,6 +22,10 @@ var EventsManager = (function () {
             return this.events[this.current];
         },
 
+        currentEventId: function () {
+            return this.currentEvent().sales_event_id;
+        },
+
         nextEvent: function () {
             if (this.current === this.events.length - 1) {
                 this.current = 0;
@@ -29,6 +33,12 @@ var EventsManager = (function () {
                 this.current += 1;
             }
             return this.currentEvent();
+        },
+
+        eventIds: function () {
+            return this.events.map(function (event) {
+                return event.sales_event_id;
+            });
         },
 
         fetchEvents: function (api, success) {
