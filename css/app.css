@@ -190,20 +190,19 @@ input[type="text"]:focus {
 
 .message-wrap {
     position: relative;
-    margin-top: 30%;
 }
 #welcome-message {
-    line-height: 80px;
+    line-height: 2em;
     text-align: center;
     font-family: 'MillerBanner-Semibold',serif;
-    font-size: 6em;
+    font-size: 3em;
 }
 
 #clock {
-    width: 100%;
+    position: absolute;
     text-align: center;
-    font-size: 3em;
-    line-height: 40px;
+    font-size: 1.5em;
+    right: 40px;
 }
 
 .refresh-wrap {
