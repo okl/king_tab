@@ -19,7 +19,7 @@ var ImageHelper = (function () {
 
     return {
         eventImageUrl: function (eventId) {
-            return scene7BaseUrl + 'SalesEvent_' + eventId + '_Lifestyle_3?' + this.imageUrlParams(EVENT_IMAGE_CONFIG);
+            return scene7BaseUrl + 'SalesEvent_' + eventId + '_Lifestyle_1?' + this.imageUrlParams(EVENT_IMAGE_CONFIG);
         },
 
         productImageUrl: function (product) {
