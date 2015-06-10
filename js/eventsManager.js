@@ -41,7 +41,7 @@ var EventsManager = (function () {
             });
         },
 
-        fetchEvents: function (api, success) {
+        fetchEvents: function (api, success, error) {
             var self = this;
 
             $.ajax(api, {
@@ -50,7 +50,7 @@ var EventsManager = (function () {
                     success();
                 },
                 error: function (err) {
-                    console.log(err);
+                   return error && error();
                 }
             });
         }

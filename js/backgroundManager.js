@@ -1,6 +1,7 @@
 var BackgroundManager = (function () {
     var $body = $('body'),
-        BG_NUM = 1;
+        BG_NUM = 1,
+        DEFAULT_OFFLINE_BACKGROUND_IMAGE = 'images/SalesEvent_52142_Lifestyle_3.jpeg';
 
     return {
         createWhiteBg: function () {
@@ -19,6 +20,10 @@ var BackgroundManager = (function () {
                 self.setBackgroundImage(eventId);
                 callback();
             };
+            image.onerror = function () {
+                self.setBackgroundImage();
+            };
+
             image.src = ImageHelper.eventImageUrl(eventId);
         },
 
@@ -37,6 +42,7 @@ var BackgroundManager = (function () {
             });
         },
 
+
         backgroundHTML: function (num, eventId) {
             var html = '<div id="bg' + num + '" ' +
                 'class="background" ' +
@@ -45,7 +51,13 @@ var BackgroundManager = (function () {
             if (eventId) {
                 return html + 'background-image: url(' + ImageHelper.eventImageUrl(eventId) + ')"></div>';
             } else {
-                return html + 'background-color: #FFFFFF"></div>';
+                if (num === 0) {
+                    return html + 'background-color: #D3D3D3"></div>';
+                }
+                else {
+                    console.log("html = ", html + 'background-image: url("SalesEvent_17944_Lifestyle_3.jpeg")"></div>');
+                    return html + 'background-image: url(' + DEFAULT_OFFLINE_BACKGROUND_IMAGE + ')"></div>';
+                }
             }
         }
     };
