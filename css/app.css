@@ -188,27 +188,22 @@ input[type="text"]:focus {
     width: 24px;
 }
 
+.message-wrap {
+    position: relative;
+    margin-top: 30%;
+}
 #welcome-message {
-    position: fixed;
-    width: 100%;
-    top: 50%;
-    height: 80px;
     line-height: 80px;
     text-align: center;
     font-family: 'MillerBanner-Semibold',serif;
     font-size: 6em;
-    /*-webkit-transform: translateY(20px);*/
 }
 
 #clock {
-    position: fixed;
-    top: 50%;
     width: 100%;
     text-align: center;
     font-size: 3em;
-    height: 40px;
     line-height: 40px;
-    -webkit-transform: translateY(110px);
 }
 
 .refresh-wrap {

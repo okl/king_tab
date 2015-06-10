@@ -28,7 +28,7 @@ var kingTab = (function (window, $) {
     return {
         init: function () {
             BackgroundManager.createWhiteBg();
-            EventsManager.fetchEvents(baseUrl + '/api/sales-events-by-days/1', function () {
+            EventsManager.fetchEvents(baseUrl + 'api/sales-events-by-days/1', function () {
                 BackgroundManager.loadBgImage(EventsManager.currentEventId(), function () {
                     BackgroundManager.preloadBgImages(EventsManager.eventIds());
                 });
