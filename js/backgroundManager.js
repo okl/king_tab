@@ -52,7 +52,7 @@ var BackgroundManager = (function () {
                 return html + 'background-image: url(' + ImageHelper.eventImageUrl(eventId) + ')"></div>';
             } else {
                 if (num === 0) {
-                    return html + 'background-color: #D3D3D3"></div>';
+                    return html + 'background-color: #FFFFFF"></div>';
                 }
                 else {
                     console.log("html = ", html + 'background-image: url("SalesEvent_17944_Lifestyle_3.jpeg")"></div>');
