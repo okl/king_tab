@@ -2,7 +2,7 @@
   "name": "One Kings Lane Tab",
   "short_name": "OKL Tab",
   "description": "A One Kings Lane branded tab page!",
-  "version": "1.2",
+  "version": "1.3",
   "incognito": "split",
   "chrome_url_overrides": {
     "newtab": "dashboard.html"
