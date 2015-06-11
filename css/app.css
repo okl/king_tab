@@ -333,5 +333,5 @@ input[type="text"]:focus {
     box-shadow: inset 40px 40px 100px 120px rgba(0,0,0,0.06);
     background-color: rgba(100, 100, 100, 0.5);
     letter-spacing: 2px;
-
+    cursor: pointer;
 }
