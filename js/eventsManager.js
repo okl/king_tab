@@ -46,7 +46,7 @@ var EventsManager = (function () {
 
             $.ajax(api, {
                 success: function (res) {
-                    self.events = JSON.parse(res).payload.slice(0, 10).shuffle();
+                    self.events = res.payload.slice(0, 10).shuffle();
                     success();
                 },
                 error: function (err) {
