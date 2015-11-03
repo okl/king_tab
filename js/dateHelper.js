@@ -9,11 +9,6 @@ var DateHelper = (function() {
         'Saturday'
     ];
 
-    var OFFICE_LOCATIONS = {
-        4: 'NY',
-        7: 'SF'
-    };
-
 
     return {
         getTimeOfTheDayGreeting: function() {
@@ -43,9 +38,14 @@ var DateHelper = (function() {
 
         getLocale: function () {
             var tzo = new Date().getTimezoneOffset()/60;
-            return OFFICE_LOCATIONS[tzo];
+            if (tzo < 7) {
+                return "NY";
+            }
+            else {
+                return "SF";
+            }
         }
-    }
+    };
 
 })();
 
